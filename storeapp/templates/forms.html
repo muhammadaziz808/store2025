@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+
+
+    <form class="mt-5" method="post" enctype="multipart/form-data" action="{% url 'change_status' pk=order.id %}">
+        {% csrf_token %}
+        <h1 class="mt-5">ID: {{order.id}}</h1>
+
+
+        {% if form_key == 'edit' %}
+        <div class="col-lg-4">
+            <strong style=" display: inline-block; font-size: 20px; margin-top:20px">O'chirish: </strong>
+            <a href="{% url 'delete_order' pk=order.id %}" class="">
+                <i class="fas fa-trash"></i>
+            </a>
+        </div>
+
+        {{form.as_p}}
+
+        {% elif form_key == 'change' %}
+        <div class="col-12 mt-3">
+            <label for="address" class="form-label">Status</label>
+            <select name="status" class="form-control">
+                <option value="Yetkazilmoqda">Yetkazilmoqda</option>
+                <option value="Yetkazildi">Yetkazildi</option>
+                <option value="To'landi">To'landi</option>
+            </select>
+        </div>
+        {% endif %}
+        <hr class="my-4">
+
+        <button class=" mb-5 btn btn-primary btn-lg" type="submit">Продолжить</button>
+        <button class=" mb-5 btn btn-danger btn-lg" type="submit">Bekor qilish</button>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Page Content -->
+<section >
+    <div class="container pt-5">
+        <div class="text-center mt-5 " >
+            <h1>Заказ №{{order.id}}</h1>
+            <div class="orders mt-5 bg-info">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Название</th>
+                        <th scope="col">Кол-во</th>
+                        <th scope="col">Цена</th>
+                        <th scope="col">Сумма</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for basket in order.basket.all %}
+                    <tr>
+                        <th scope="row">
+                            {{basket.product.name}}
+                        </th>
+                        <td>{{basket.count}}</td>
+                        <td>{{basket.product.price}} руб.</td>
+                        <td>{{basket.basket_price}} руб.</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <p class="float-right h4 mt-3 bg-info">Итого {{order.summa}} руб.</p>
+                 <table class="table mt-5 ">
+                    <thead>
+                    <tr>
+                        <th scope="col">Ismi</th>
+                        <th scope="col">familiyasi</th>
+                        <th scope="col">addres</th>
+                        <th scope="col">telefon</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <th scope="row">
+                            {{order.first_name}}
+                        </th>
+                        <td>{{order.last_name}}</td>
+                        <td>{{order.address}} руб.</td>
+                        <td>{{order.phone}}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

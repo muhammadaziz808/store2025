@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-lg-2">
+
+            <h1 class="my-4">Store</h1>
+            <div class="list-group">
+
+                <a href="{% url 'order_category' status='Yetkazilmoqda' %}" class="list-group-item">Yetkazilmoqda</a>
+                <a href="{% url 'order_category' status='Yetkazildi' %}" class="list-group-item">Yetkazildi</a>
+                <a href="{% url 'order_category' status='To\'landi' %}" class="list-group-item">To'landi</a>
+                <a href="{% url 'order_category' status='None' %}" class="list-group-item">None</a>
+                <hr class="my-4">
+
+                <a href="{% url 'admin_panel' %}" class="list-group-item">Hammasi</a>
+
+            </div>
+
+        </div>
+
+        <section class="col-lg-10">
+            <div class="container">
+                <div class="text-center ">
+                    <h1>Заказы</h1>
+                    <div class="orders mt-5">
+                        <table class="table ">
+                            <thead>
+                            <tr class="table-light">
+                                <th scope="col">#</th>
+                                <th scope="col">Owner</th>
+                                <th scope="col">Статус</th>
+                                <th scope="col">Создан</th>
+                                <th scope="col">Итого</th>
+                                <th scope="col">Действие</th>
+                                <th scope="col">Действие</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for order in orders %}
+
+                            <tr class="{% if order.status == 'Yetkazildi' %} table-success {% elif order.status == 'Yetkazilmoqda' %} table-info {% elif order.status == 'To\'landi' %} table-warning {% else %} table-danger  {% endif %}">
+                                <th scope="row">{{order.id}}</th>
+                                <th scope="row">{{order.first_name}}</th>
+                                <td><a href="{% url 'change_status' pk=order.id %}">{{order.status}}</a></td>
+                                <td>{{order.created}}</td>
+                                <td>{{order.summa}} руб.</td>
+                                <td>
+                                    <a href="{% url 'order' pk=order.id %}">просмотреть</a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'edit_order' pk=order.id %}">o'zgartish</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+{% endblock content %}
